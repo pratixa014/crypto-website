@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second-Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+     <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <main>
+          <div class="container mt-3" id="currencyData">
+          </div>
+    
+      </main>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('id');
+        console.log(myParam);
+        async function getapi() {
+            const url = "https://api.coingecko.com/api/v3/coins/"+myParam ;
+            const response = await fetch(url);
+            var data = await response.json();
+
+            var currencyData = document.getElementById("currencyData");
+            
+            currencyData.innerHTML = `<span class="badge bg-dark mb-2">Rank #${data.market_cap_rank}</span>
+            <div class="d-flex align-items-center">
+                <img src="${data.image.thumb}" alt="" />
+                 &nbsp;<h3>${data.name}</h3>
+                 &nbsp;
+                <span class="symbol">${data.symbol}</span>
+            </div>
+
+            <div class="d-flex align-items-center mb-2">
+               <h1>$${parseFloat(data.market_data.current_price.usd).toLocaleString("en-US")}</h1>
+               &nbsp;<span><i class="bi bi-caret-up-fill"></i>${data.market_data.price_change_percentage_1h_in_currency.usd.toFixed
+                (1)}%</span>
+    </div>
+           <button type="button" class="btn btn-outline-dark">
+              <i class="bi bi-arrow-90deg-right"></i>
+           </button>
+           <button type="button" class="btn btn-outline-dark">
+              <i class="bi bi-bell"></i>
+            </button>
+           <button type="button" class="btn btn-outline-dark">
+              <i class="bi bi-star"></i>
+           </button>
+
+           <span class="badge bg-light text-dark">
+            <i class="bi bi-star-fill text-warning"></i> On Watchlists</span>
+
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <table class="table">
+                        <tbody>
+                            <tr class="">
+                                <td scope="row" class="align-middle">Market Cap&nbsp;<i class="bi bi-question-circle"></i></td>
+                                <td class="align-middle text-end">$${parseFloat(data.market_data.market_cap.usd).toLocaleString("en-US")}</td>
+                                </tr>
+                                <tr class="">
+              <td scope="row" class="align-middle">24 Hour Trading Vol&nbsp;<i class="bi bi-question-circle"></i></td>
+              <td class="align-middle text-end">$${parseFloat(
+                data.market_data.total_volume.usd
+              ).toLocaleString("en-US")}</td>
+            </tr>
+            <tr class="">
+              <td scope="row" class="align-middle">Fully Diluted Valuation&nbsp;<i class="bi bi-question-circle"></i></td>
+              <td class="align-middle text-end">$${parseFloat(
+                data.market_data.fully_diluted_valuation.usd
+              ).toLocaleString("en-US")}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-6">
+        <table class="table">
+          <tbody>
+            <tr class="">
+              <td scope="row" class="align-middle">Circulating Supply&nbsp;<i class="bi bi-question-circle"></i></td>
+              <td class="align-middle text-end">$${parseFloat(
+                data.market_data.circulating_supply
+              ).toLocaleString("en-US")}</td>
+            </tr>
+            <tr class="">
+              <td scope="row" class="align-middle">Total Supply&nbsp;<i class="bi bi-question-circle"></i></td>
+              <td class="align-middle text-end">$${parseFloat(
+                data.market_data.total_supply
+              ).toLocaleString("en-US")}</td>
+            </tr>
+            <tr class="">
+              <td scope="row" class="align-middle">Max Supply&nbsp;<i class="bi bi-question-circle"></i></td>
+              <td class="align-middle text-end">$${parseFloat(
+                data.market_data.max_supply
+              ).toLocaleString("en-US")}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>`
+   console.log(data);
+
+    }
+   
+getapi();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>"
+    
+</body>
+</html>
